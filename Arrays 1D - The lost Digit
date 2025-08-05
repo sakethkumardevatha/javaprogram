@@ -1,0 +1,6 @@
+N = int(input())
+A = list(map(int, input().split()))
+
+full_sum = N * (N + 1) // 2
+missing = full_sum - sum(A)
+print(missing)
