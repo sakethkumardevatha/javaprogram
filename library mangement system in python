@@ -1,0 +1,93 @@
+class Node:
+    """
+    Represents a single book in the linked list (stack node).
+    Each node stores a book name and a reference to the next node.
+    """
+    def __init__(self, book_name):
+        self.book_name = book_name
+        self.next = None
+
+class BookStack:
+    """
+    Implements a Last In, First Out (LIFO) Stack using a Linked List.
+    The 'head' of the linked list acts as the 'top' of the stack.
+    """
+    def __init__(self):
+        self.head = None  # Initially, the stack is empty
+        self.size = 0     # Keep track of the number of books in the stack
+
+    def push(self, book_name):
+        """
+        Adds a new book to the top of the stack.
+        This is equivalent to adding a new node at the beginning of the linked list.
+        """
+        new_node = Node(book_name)
+        new_node.next = self.head  # The new node points to the previous top
+        self.head = new_node      # The new node becomes the new top
+        self.size += 1
+
+    def pop(self):
+        """
+        Removes and returns the book from the top of the stack.
+        Returns "Stack Underflow" if the stack is empty.
+        """
+        if self.is_empty_internal():
+            return "Stack Underflow"
+        popped_book_name = self.head.book_name # Get the name of the book at the top
+        self.head = self.head.next             # Move the head to the next node
+        self.size -= 1
+        return popped_book_name
+
+    def top(self):
+        """
+        Returns the book at the top of the stack without removing it.
+        Returns "Stack Underflow" if the stack is empty.
+        """
+        if self.is_empty_internal():
+            return "Stack Underflow"
+        return self.head.book_name
+
+    def is_empty_internal(self):
+        """
+        Internal helper to check if the stack is empty, returning a boolean (True/False).
+        """
+        return self.head is None
+
+    def is_empty(self):
+        """
+        Checks if the stack is empty and returns the result as a lowercase string ("true" or "false")
+        to match the exact output format requirement.
+        """
+        return str(self.is_empty_internal()).lower()
+
+    def get_size(self):
+        """
+        Returns the current number of books in the stack.
+        """
+        return self.size
+
+# --- Main Program Execution ---
+if __name__ == "__main__":
+    num_operations = int(input()) # Read the total number of operations
+    book_stack = BookStack()      # Initialize the book stack
+
+    for _ in range(num_operations):
+        command_line = input()
+        parts = command_line.split(" ", 1) # Split into command and argument (if any)
+
+        command = parts[0]
+
+        if command == "Push":
+            book_name = parts[1]
+            book_stack.push(book_name)
+        elif command == "Pop":
+            result = book_stack.pop()
+            # Only print "Stack Underflow" if it occurs, as per problem statement
+            if result == "Stack Underflow":
+                print(result)
+        elif command == "Top":
+            print(book_stack.top())
+        elif command == "IsEmpty":
+            print(book_stack.is_empty())
+        elif command == "Size":
+            print(book_stack.get_size())
