@@ -1,0 +1,16 @@
+X = int(input())
+Y = int(input())
+
+if X < 0 or Y < 0:
+    print("Invalid Input")
+else:
+    if Y > X:
+        profit = Y - X
+        percent = (profit * 100) // X
+        print(f"Profit - {percent}%")
+    elif X > Y:
+        loss = X - Y
+        percent = (loss * 100) // X
+        print(f"Loss - {percent}%")
+    else:
+        print("No Profit, No Loss")
